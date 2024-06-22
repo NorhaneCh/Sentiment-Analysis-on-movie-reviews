@@ -33,7 +33,6 @@ def predict_sentiment(review, model, tokenizer, max_length):
     padded_sequence = preprocess_review(review, tokenizer, max_length)
     prediction = model.predict(padded_sequence)
     sentiment = 'positive' if prediction >= 0.5 else 'negative'
-    st.write(f"Prediction : {prediction}")
     return sentiment
 
 
@@ -43,7 +42,6 @@ review = st.text_input("Enter Movie Review")
 if st.button('Predict'):
     if review:
         sentiment = predict_sentiment(review, model, tokenizer, max_length)
-        st.write(f"Review: {review}")
         st.write(f"Predicted Sentiment: {sentiment}")
     else:
         st.write("Please enter a movie review to predict its sentiment.")
