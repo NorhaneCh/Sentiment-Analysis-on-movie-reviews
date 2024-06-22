@@ -47,7 +47,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-image = Image.open('movies.jpeg')
+image = Image.open('movies.jpg')
 st.image(image)
 review = st.text_input("Enter Movie Review")
 
