@@ -1,14 +1,9 @@
 import streamlit as st
 import tensorflow as tf
+from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import tokenizer_from_json
-
-# Load the saved model
-try:
-    model = load_model('model.h5')
-except Exception as e:
-    st.write(f"Error loading model: {e}")
 
 # Define the max length
 max_length = 2493
@@ -39,11 +34,26 @@ def predict_sentiment(review, model, tokenizer, max_length):
     return sentiment
 
 
-st.title('Sentiment Analysis On Movie Reviews')
+st.markdown(
+    """
+    <style>
+    .center-text {
+        text-align: center;
+    }
+    </style>
+    <div class="center-text">
+        <h1>Movie Reviews</h1>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+image = Image.open('movies.jpeg')
+st.image(image)
 review = st.text_input("Enter Movie Review")
 
 if st.button('Predict'):
     if review:
+        model = load_model('model.h5')
         sentiment = predict_sentiment(review, model, tokenizer, max_length)
         st.write(f"Predicted Sentiment : {sentiment}")
     else:
